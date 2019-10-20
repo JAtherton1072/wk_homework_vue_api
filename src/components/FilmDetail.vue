@@ -1,6 +1,8 @@
 <template>
 <article v-if="film">
       <h1> {{ film.title }} </h1>
+      <button v-on:click="handleClick">Add to favourites</button>
+      <button v-on:click="handleRemoveClick">Remove from favourites</button>
 
       <h3><span>Director</span>:</h3> {{ film.director }}
       <h3><span>Release Date</span>:</h3>{{ film.release_date }}
@@ -15,7 +17,13 @@
   name: 'film-detail',
   props: ['film'],
   methods: {
-      
+    handleClick(){
+      eventBus.$emit('fav-selected', this.film);
+    },
+
+    handleRemoveClick(){
+      eventBus.$emit('fav-to-remove', this.film);
+    }
   }
 }
 </script>
@@ -26,10 +34,10 @@ article{
 }
 button {
   color:black;
-  background-color: rgb(12, 122, 85);
+  font-family: Palatino;
+  background-color: #FA8334;
   border-radius: 30px;
   font-size: 100%;
-  font-family:fantasy;
   padding-bottom: 1px;
   padding-top: 2px;
 }
